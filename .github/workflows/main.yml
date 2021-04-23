@@ -49,6 +49,11 @@ jobs:
     
       - uses: Vampire/setup-wsl@v1
       
+      - name: Install Dependencies
+        uses: crazy-max/ghaction-chocolatey@v1.4.2
+        with:
+          args: install wget
+          
       - name: Build   
         shell: bash
         run: |
