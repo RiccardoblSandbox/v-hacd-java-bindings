@@ -47,13 +47,17 @@ jobs:
         with:
           fetch-depth: 1
               
+      - name: Install dependencies
+        uses: crazy-max/ghaction-chocolatey@v1.4.2
+        with:
+          args: install wget mingw
+  
       - name: Build   
-        shell: cmd
+        shell: bash
         run: |
-          dockercli -SwitchDaemon
-          docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildWindows64
-          docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildWindows64
-          docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildJavaBindings
+          ./make.sh buildWindows64
+          ./make.sh buildWindows64
+          ./make.sh buildJavaBindings
      
       - name: Upload Windows test build
         uses: actions/upload-artifact@v2
