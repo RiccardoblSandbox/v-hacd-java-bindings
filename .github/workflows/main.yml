@@ -50,10 +50,10 @@ jobs:
       - uses: Vampire/setup-wsl@v1
       
       - name: Build   
-        shell: wsl-bash_Ubuntu-20.04 {0}
+        shell: wsl-bash {0}
         run: |
-          bash ./make.sh buildWindows32
-          bash ./make.sh buildWindows64
+          wsl-bash ./make.sh buildWindows32
+          wsl-bash ./make.sh buildWindows64
           ls ./build/tests/
           mkdir -p deploy/
           tar -C build/lib/ -czf deploy/libs-wsl.tar.gz .
