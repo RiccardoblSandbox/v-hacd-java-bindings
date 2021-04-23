@@ -46,37 +46,19 @@ jobs:
         uses: actions/checkout@v1     
         with:
           fetch-depth: 1
-    
-      - uses: Vampire/setup-wsl@v1
-      
-      - name: Install Dependencies
-        uses: crazy-max/ghaction-chocolatey@v1.4.2
-        with:
-          args: install wget
-          
+              
       - name: Build   
-        shell: bash
+        shell: cmd
         run: |
-          bash --version
-          ./make.sh buildWindows32
-          ./make.sh buildWindows64
-          ls ./build/tests/
-          mkdir -p deploy/
-          tar -C build/lib/ -czf deploy/libs-wsl.tar.gz .
-          tar -C build/tests/ -czf deploy/tests-wsl.tar.gz .
-
-      - name: Upload libs
+          docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildWindows64
+          docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildWindows64
+          docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildJavaBindings
+     
+      - name: Upload Windows test build
         uses: actions/upload-artifact@v2
         with:
-          name: libs-wsl
-          path: deploy/libs-wsl.tar.gz
-
-      - name: Upload tests
-        uses: actions/upload-artifact@v2
-        with:
-          name: tests-wsl
-          path: deploy/tests-wsl.tar.gz
-
+          name: build-test-win
+          path: build
 
 
   BuildLinuxWindows:
