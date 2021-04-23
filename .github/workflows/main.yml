@@ -50,11 +50,11 @@ jobs:
       - uses: Vampire/setup-wsl@v1
       
       - name: Build   
-        shell: wsl-bash {0}
+        shell: bash
         run: |
-          source ./make.sh 
-          buildWindows32
-          buildWindows64
+          bash --version
+          ./make.sh buildWindows32
+          ./make.sh buildWindows64
           ls ./build/tests/
           mkdir -p deploy/
           tar -C build/lib/ -czf deploy/libs-wsl.tar.gz .
