@@ -48,9 +48,9 @@ jobs:
           fetch-depth: 1
               
       - name: Build   
-        shell: powershell
+        shell: cmd
         run: |
-          & $Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchDaemon .
+          dockercli -SwitchDaemon
           docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildWindows64
           docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildWindows64
           docker run riccardoblb/buildenvs:javacross -w/workdir -v%CD%:/workdir ./make.sh buildJavaBindings
