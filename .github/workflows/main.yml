@@ -106,7 +106,7 @@ jobs:
 
   Release:
     name: Build release 
-    needs: [BuildOnWindows,BuildMac,BuildWSL]
+    needs: [BuildLinuxWindows,BuildMac,BuildOnWindows]
     runs-on: ubuntu-latest
      
     steps:
