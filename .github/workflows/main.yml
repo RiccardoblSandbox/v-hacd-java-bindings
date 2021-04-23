@@ -37,8 +37,8 @@ jobs:
           name: tests-mac
           path: deploy/tests-mac.tar.gz
           
-  BuildWSL:
-    name: Build vhacd on WSL
+  BuildOnWindows:
+    name: Build vhacd on Windows
     runs-on: windows-latest
    
     steps:
@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         uses: crazy-max/ghaction-chocolatey@v1.4.2
         with:
-          args: install wget mingw
+          args: install wget mingw maven
   
       - name: Build   
         shell: bash
@@ -106,7 +106,7 @@ jobs:
 
   Release:
     name: Build release 
-    needs: [BuildLinuxWindows,BuildMac,BuildWSL]
+    needs: [BuildOnWindows,BuildMac,BuildWSL]
     runs-on: ubuntu-latest
      
     steps:
